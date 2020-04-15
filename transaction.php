@@ -19,4 +19,19 @@ echo '<form method="POST">
     <h3 style="font-size: medium;" align="center">Your Current Ballance: $curBalance</h3>
 </div>
 </form>';
+$senderTransaction = $_POST['amount'] * -1;
+$receiverTransaction = $_POST['amount'];
+$sender = $_SESSION['name'];
+$receiver = $_POST['to'];
+
+$sqlSubtr = "UPDATE users SET balance = balance - :senderTransaction WHERE name = :sender";
+$stmt = $connected->prepare($sqlSubtr);
+$stmt = $connected->bindParam(':senderTransaction', $senderTransaction, PDO::PARAM_INT);
+$stmt = $connected->bindParam(':senderTransaction', $sender, PDO::PARAM_STR);
+$stmt->execute();
+$sqlAdd = "UPDATE users SET balance = balance + :receiverTransaction WHERE name = :receiver";
+$stmt = $connected->prepare($sqlSubtr);
+$stmt = $connected->bindParam(':senderTransaction', $receiverTransaction, PDO::PARAM_INT);
+$stmt = $connected->bindParam(':senderTransaction', $receiver, PDO::PARAM_STR);
+$stmt->execute();
 ?>
