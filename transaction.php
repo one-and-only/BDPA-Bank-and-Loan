@@ -10,7 +10,7 @@ echo '<form method="POST">
     <br>
     <br>
     <button type="submit" class="btn btn-primary">Initiate the Transaction</button>
-    <h3 style="font-size: medium;" align="center">Your Current Ballance: $curBalance</h3>
+    <h3 style="font-size: medium;" align="center">Your Current Balance: $curBalance</h3>
 </div>
 </form>';
 $senderTransaction = $_POST['amount'] * -1;
