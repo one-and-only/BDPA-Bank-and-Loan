@@ -24,14 +24,30 @@ $receiverTransaction = $_POST['amount'];
 $sender = $_SESSION['name'];
 $receiver = $_POST['to'];
 
+$begin = "BEGIN";
+$beginPrep = $connected->prepare($begin);
+$beginPrep->execute();
+
 $sqlSubtr = "UPDATE users SET balance = balance - :senderTransaction WHERE name = :sender";
 $stmt = $connected->prepare($sqlSubtr);
 $stmt = $connected->bindParam(':senderTransaction', $senderTransaction, PDO::PARAM_INT);
 $stmt = $connected->bindParam(':senderTransaction', $sender, PDO::PARAM_STR);
 $stmt->execute();
+
 $sqlAdd = "UPDATE users SET balance = balance + :receiverTransaction WHERE name = :receiver";
 $stmt = $connected->prepare($sqlSubtr);
 $stmt = $connected->bindParam(':senderTransaction', $receiverTransaction, PDO::PARAM_INT);
 $stmt = $connected->bindParam(':senderTransaction', $receiver, PDO::PARAM_STR);
 $stmt->execute();
+
+$balance = "SELECT balance FROM users WHERE name = :sender";
+$balancePrep = $connected->prepare($balance);
+$balancePrep->bindParam(':sender', $sender, PDO::PARAM_STR);
+$balancePrep->execute();
+
+if($balancePrep < 0) {
+    $undo = "ROLLBACK";
+    $undoPrep = $connected->prepare($undo);
+    $undoPrep->execute();
+}
 ?>
