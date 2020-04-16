@@ -15,8 +15,9 @@
     <div id="wrapper">
     <div id="menu">
         <a class="item" href="index.php">Dashboard</a> 
-        <a class="item" href="create_topic.php">Create a Transaction</a> 
-        <a class="item" href="create_cat.php">Check your Daily Interest Earnings</a>
+        <a class="item" href="transaction.php">Create a Transaction</a> 
+        <a class="item" href="interest.php">Check your Daily Interest Earnings</a>
+        <a class="item" href="LICENSE">License</a>
          
         <div id="userbar">
         <?php
