@@ -27,12 +27,12 @@ else
     else
     {
         //prepare the table
-        echo '<table border="1">
+        echo '<table border="1" class="table table-striped">
               <tr>
-                <th>Account Name</th>
-                <th>Account Phone Number</th>
-                <th>Account Balance</th>
-                <th>Last Transaction ID</th>
+                <th scope="col">Account Name</th>
+                <th scope="col">Account Phone Number</th>
+                <th scope="col">Account Balance</th>
+                <th scope="col">Last Transaction ID</th>
               </tr>'; 
              
         while($row = $result->fetch(PDO::FETCH_ASSOC))
