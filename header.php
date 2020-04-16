@@ -11,7 +11,7 @@
     <link rel="stylesheet" src="style.css"> 
 </head>
 <body>
-<h1>My forum</h1>
+<h1>Welcome to BDPA Bank & Loan</h1>
     <div id="wrapper">
     <div id="menu">
         <a class="item" href="index.php">Dashboard</a> 
