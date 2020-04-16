@@ -22,31 +22,28 @@ $receiverTransaction = $_POST['amount'];
 $sender = $_SESSION['name'];
 $receiver = $_POST['to'];
 
-$begin = "BEGIN";
-$beginPrep = $connected->prepare($begin);
-$beginPrep->execute();
+$begin = $connected->prepare('BEGIN');
+$begin->execute();
 
-$sqlSubtr = "UPDATE users SET balance = balance - :senderTransaction WHERE name = :sender";
-$stmt = $connected->prepare($sqlSubtr);
-$stmt = $connected->bindParam(':senderTransaction', $senderTransaction, PDO::PARAM_INT);
-$stmt = $connected->bindParam(':senderTransaction', $sender, PDO::PARAM_STR);
-$stmt->execute();
+$transactionSender = $connected->prepare('UPDATE users SET balance = balance - :senderTransaction WHERE name = :sender');
+$transactionSender->bindParam(':senderTransaction', $senderTransaction, PDO::PARAM_INT);
+$transactionSender->bindParam(':senderTransaction', $sender, PDO::PARAM_STR);
+$transactionSender->execute();
 
-$sqlAdd = "UPDATE users SET balance = balance + :receiverTransaction WHERE name = :receiver";
-$stmt = $connected->prepare($sqlSubtr);
-$stmt = $connected->bindParam(':senderTransaction', $receiverTransaction, PDO::PARAM_INT);
-$stmt = $connected->bindParam(':senderTransaction', $receiver, PDO::PARAM_STR);
-$stmt->execute();
+$sqlAdd = $connected->prepare('UPDATE users SET balance = balance + :receiverTransaction WHERE name = :receiver');
+$sqlAdd->bindParam(':senderTransaction', $receiverTransaction, PDO::PARAM_INT);
+$$sqlAdd->bindParam(':senderTransaction', $receiver, PDO::PARAM_STR);
+$sqlAdd->execute();
 
-$balance = "SELECT balance FROM users WHERE name = :sender";
-$balancePrep = $connected->prepare($balance);
-$balancePrep->bindParam(':sender', $sender, PDO::PARAM_STR);
-$balancePrep->execute();
+$balance = $connected->prepare('SELECT balance FROM users WHERE name = :sender');
+$balance->bindParam(':sender', $sender, PDO::PARAM_STR);
+$query = $balance->execute();
 
-if($balancePrep < 0) {
-    $undo = "ROLLBACK";
-    $undoPrep = $connected->prepare($undo);
-    $undoPrep->execute();
+if($balance < 0 || !$query) {
+
+    $undo = $connected->prepare('ROLLBACK');
+    $undo->execute();
+    echo 'Your transaction was declined because the recipient, ' . $receiver . ', was not found or your account has insufficient funds. Please check that the recipient you are trying to send funds to exists and that your account has sufficient funds.';
 }
 
 include 'footer.php';
