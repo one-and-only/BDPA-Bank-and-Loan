@@ -10,7 +10,14 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
     /*the form hasn't been posted yet, display it
       note that the action="" will cause the form to post to the same page it is on */
-    echo '<form method="post" align="center">
+      echo '<h1 align="center">Sign up here if you haven\'t already. You will automatically receive $500 when you open an account today courtesy of BDPA Band & Loan.<h1>';
+
+      echo '
+      <br>
+      <br>
+      <br>';
+      
+      echo '<form method="post" align="center">
         Full Name: <input type="text" name="name" class="form-control" placeholder="John Smith" required>
         Password: <input type="password" class="form-control" placeholder="mypass123" name="pass" required>
         Phone Number: <input type="number" class="form-control" placeholder="1234567890" name="phone_num" required>
@@ -31,7 +38,7 @@ else
         //the user name exists
         if(!ctype_alnum($_POST['name']))
         {
-            $errors[] = 'The username can only contain letters and digits.';
+            $errors[] = 'The name can only contain letters and digits.';
         }
         if(strlen($_POST['name']) > 255)
         {
