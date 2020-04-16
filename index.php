@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connected.php';
 include 'header.php';
 require 'loginCheck.php';
