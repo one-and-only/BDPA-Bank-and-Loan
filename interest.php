@@ -9,8 +9,8 @@ $power = 0.0299 / 365;
 $interestEarned = pow($interestEarnedNoPower, $power);
 
 $depositInterest = $connected->prepare('UPDATE users SET balance = balance + :interestEarned');
-$depositInterest->bindParam(':interestEarned', $interestEarned, PDO::PARAM_INT);
-$depositInterest->execute();
+$depositInterest = $connectedStmt->bindParam(':interestEarned', $interestEarned, PDO::PARAM_INT);
+$depositInterest = $connectedStmt->execute();
 
 echo '<h3 align="center">You have earned $'. $interestEarned . ' in interet today. This has already been automatically deposited to your account.</h3>';
 

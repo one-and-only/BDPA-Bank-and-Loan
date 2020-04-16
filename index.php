@@ -6,8 +6,8 @@ require 'loginCheck.php';
 
 $sql = "SELECT name phone_num balance last_transaction_id FROM users WHERE name = :name";
 $connected->prepare($sql);
-$connected->bindParam(':name', $_SESSION(['name']), PDO::PARAM_STR);
-$result = $connected->execute();
+$connected = $connectedStmt->bindParam(':name', $_SESSION(['name']), PDO::PARAM_STR);
+$result = $connectedStmt->execute();
 
 if(!$result)
 {

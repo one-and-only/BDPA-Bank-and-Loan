@@ -54,9 +54,9 @@ else
         //the form has been posted without, so save it
         
         $sql = $connected->prepare('INSERT INTO users (name, phone_num, password) VALUES (:name, :phone_num, :pass)');
-        $sql->bindParam(':name', $_POST['name'], PDO::PARAM_STR);
-        $sql->bindParam(':phone_num', $_POST['phone_num'], PDO::PARAM_INT);
-        $result = $sqlPrep->execute();
+        $sql = $connectedStmt->bindParam(':name', $_POST['name'], PDO::PARAM_STR);
+        $sql = $connectedStmt->bindParam(':phone_num', $_POST['phone_num'], PDO::PARAM_INT);
+        $result = $sql->execute();
         if(!$result)
         {
             //something went wrong, display the error

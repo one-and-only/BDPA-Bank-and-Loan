@@ -26,17 +26,17 @@ $begin = $connected->prepare('BEGIN');
 $begin->execute();
 
 $transactionSender = $connected->prepare('UPDATE users SET balance = balance - :senderTransaction WHERE name = :sender');
-$transactionSender->bindParam(':senderTransaction', $senderTransaction, PDO::PARAM_INT);
-$transactionSender->bindParam(':senderTransaction', $sender, PDO::PARAM_STR);
+$transactionSender = $connectedStmt->bindParam(':senderTransaction', $senderTransaction, PDO::PARAM_INT);
+$transactionSender = $connectedStmt->bindParam(':senderTransaction', $sender, PDO::PARAM_STR);
 $transactionSender->execute();
 
 $sqlAdd = $connected->prepare('UPDATE users SET balance = balance + :receiverTransaction WHERE name = :receiver');
-$sqlAdd->bindParam(':senderTransaction', $receiverTransaction, PDO::PARAM_INT);
-$$sqlAdd->bindParam(':senderTransaction', $receiver, PDO::PARAM_STR);
+$sqlAdd = $connectedStmt->bindParam(':senderTransaction', $receiverTransaction, PDO::PARAM_INT);
+$$sqlAdd = $connectedStmt->bindParam(':senderTransaction', $receiver, PDO::PARAM_STR);
 $sqlAdd->execute();
 
 $balance = $connected->prepare('SELECT balance FROM users WHERE name = :sender');
-$balance->bindParam(':sender', $sender, PDO::PARAM_STR);
+$balance = $connectedStmt->bindParam(':sender', $sender, PDO::PARAM_STR);
 $query = $balance->execute();
 
 if($balance < 0 || !$query) {
