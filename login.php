@@ -43,12 +43,11 @@ echo '<form method="post" action="">
                     //we also put the user_id and user_name values in the $_SESSION, so we can use it at various pages
                     while($row = mysqli_fetch_assoc($result))
                     {
-                        $_SESSION['user_id']    = $row['user_id'];
-                        $_SESSION['user_name']  = $row['user_name'];
-                        $_SESSION['user_level'] = $row['user_level'];
+                        $_SESSION['user_id'] = $row['user_id'];
+                        $_SESSION['name'] = $row['name'];
                     }
                      
-                    echo 'Welcome, ' . $_SESSION['user_name'] . '. <a href="index.php">Proceed to your Dashboard.</a>.';
+                    echo 'Welcome, ' . $_SESSION['name'] . '. <a href="index.php">Proceed to your Dashboard.</a>.';
                 }
             }
 ?>

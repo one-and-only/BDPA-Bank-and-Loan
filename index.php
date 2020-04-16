@@ -9,9 +9,9 @@ include 'connected.php';
 include 'header.php';
 require 'loginCheck.php';
 
-$sql = "SELECT name phone_num balance last_transaction_id FROM users WHERE name LIKE ':name'";
+$sql = "SELECT name phone_num balance last_transaction_id FROM users WHERE name = :name";
 $connected->prepare($sql);
-$connected->bindParam(':name', $_SESSION(['username']), PDO::PARAM_STR);
+$connected->bindParam(':name', $_SESSION(['name']), PDO::PARAM_STR);
 $result = $connected->execute();
 
 if(!$result)
