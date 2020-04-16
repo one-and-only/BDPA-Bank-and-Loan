@@ -3,6 +3,10 @@ include 'header.php';
 include 'connected.php';
 require 'loginCheck.php';
 
+$curBalance = $connected->prepare('SELECT balance from users WHERE name = :name');
+$curBalance->bindParam(':name', $_SESSION['name'], PDO::PARAM_STR);
+$curBalance->execute();
+
 echo '<form method="POST">
 <div class="form-group" align="center">
     <p style="font-size: medium;" align="center">Amount: </p><input type="text" name="amount" placeholder="Ex: 1234" required>
