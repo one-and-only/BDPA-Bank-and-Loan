@@ -1,4 +1,7 @@
 <?php 
+include 'connect.php';
+include 'header.php';
+require 'loginCheck.php';
 
 $curBalance = $connected->prepare('SELECT balance from users WHERE name = :name');
 $curBalance->bindParam(':name', $_SESSION['name'], PDO::PARAM_STR);
@@ -8,10 +11,15 @@ $interestNoPower = $curBalance * 2.71828;
 $power = 0.0299 / 365;
 $interestEarned = pow($interestEarnedNoPower, $power);
 
-$depositInterest = $connected->prepare('UPDATE users SET balance = balance + :interestEarned');
-$depositInterest = $connectedStmt->bindParam(':interestEarned', $interestEarned, PDO::PARAM_INT);
-$depositInterest = $connectedStmt->execute();
+echo '<h3 align="center">You have earned $'. $interestEarned . ' in interest today. Would you like to deposit this to your account?</h3>';
+echo '<form align = "center" action="deposit-interest.php" method="post">
+<input type="submit" class="btn btn-primary "name="deposit" value="Deposit Your Earned Interest" />
+</form>';
 
-echo '<h3 align="center">You have earned $'. $interestEarned . ' in interet today. This has already been automatically deposited to your account.</h3>';
+echo '<form align = "center" action="no-interest.php" method="post">
+<input type="submit" class="btn btn-primary "name="deposit" value="Don\'t Deposit Your Earned Interest" />
+</form>';
+
+
 
 ?>
