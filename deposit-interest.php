@@ -12,6 +12,13 @@ require 'loginCheck.php';
     {
         $depositInterest = $connected->prepare('UPDATE users SET balance = balance + :interestEarned');
         $depositInterest = $connectedStmt->bindParam(':interestEarned', $interestEarned, PDO::PARAM_INT);
-        $depositInterest = $connectedStmt->execute();   
+        $depositInterest = $connectedStmt->execute();
+        
+        echo '<h3 align="center">You have chosen to deposit your interest. You will automatically be redirected to your Dashboard shortly.</h3>';
+        sleep(5);
+
+        header('Location: index.php');
+
+        include 'footer.php';
     }
 ?>
