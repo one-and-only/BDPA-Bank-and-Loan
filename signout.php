@@ -1,6 +1,6 @@
 <?php
 //signout.php
-include 'connect.php';
+include 'connected.php';
 include 'header.php';
 require 'loginCheck.php';
 
