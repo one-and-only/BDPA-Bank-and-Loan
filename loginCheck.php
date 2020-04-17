@@ -1,5 +1,4 @@
 <?php
-require 'index.php';
     
      //At the top of the page check to see whether the user is logged in or not
      if(empty($_SESSION['name']))
