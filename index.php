@@ -1,12 +1,13 @@
 <?php
+require_once 'session.php';
 include 'connected.php';
 include 'header.php';
 require 'loginCheck.php';
 
-$sql = "SELECT name phone_num balance last_transaction_id FROM users WHERE name LIKE ':name'";
+$sql = "SELECT name phone_num balance last_transaction_id FROM users WHERE name = :name";
 $connected->prepare($sql);
-$connected->bindParam(':name', $_SESSION(['username']), PDO::PARAM_STR);
-$result = $connected->execute();
+$connected = $connectedStmt->bindParam(':name', $_SESSION(['name']), PDO::PARAM_STR);
+$result = $connectedStmt->execute();
 
 if(!$result)
 {
@@ -21,12 +22,12 @@ else
     else
     {
         //prepare the table
-        echo '<table border="1">
+        echo '<table border="1" class="table table-striped">
               <tr>
-                <th>Account Name</th>
-                <th>Account Phone Number</th>
-                <th>Account Balance</th>
-                <th>Last Transaction ID</th>
+                <th scope="col">Account Name</th>
+                <th scope="col">Account Phone Number</th>
+                <th scope="col">Account Balance</th>
+                <th scope="col">Last Transaction ID</th>
               </tr>'; 
              
         while($row = $result->fetch(PDO::FETCH_ASSOC))
@@ -45,4 +46,5 @@ else
 
 echo "would you like to <a href='transaction.php'>make a transaction</a or view <a href='interest.php'>interest earned today</a>?";
 
+include 'footer.php';
 ?>
