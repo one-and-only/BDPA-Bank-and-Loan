@@ -1,7 +1,6 @@
 <?php
 include 'connected.php';
 include 'header.php';
-require 'loginCheck.php';
 
 echo 'you are not signed in. Please sign in to continue or create an account.';
 echo '
